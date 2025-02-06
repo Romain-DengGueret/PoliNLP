@@ -1,0 +1,27 @@
+repos:
+  # Ruff for Python linting and formatting (every folder)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.7.0
+    hooks:
+      - id: ruff
+        name: Ruff Linter (All .py and .ipynb files)
+        args: ["--fix"]  # Automatically correct errors
+        files: \.(py|ipynb)$  # Applied to .py and .ipynb files
+        stages: [pre-commit]  # Trigger this in the pre-commit stage
+
+      - id: ruff-format
+        name: Ruff Formatter (All .py and .ipynb files)
+        files: \.(py|ipynb)$  # Applied to .py and .ipynb files
+        stages: [pre-commit]  # Trigger this in the pre-commit stage
+
+  # MyPy to check type annotations (Python and Jupyter Notebooks)
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.0.1
+    hooks:
+      - id: mypy
+        name: MyPy Type Checker (All .py and .ipynb files)
+        args: ["--explicit-package-bases", "--ignore-missing-imports"]  # Type checking for Python files with missing imports handled
+        additional_dependencies:
+          - pydantic==2.9.2  # Optional dependency if using Pydantic, remove if not needed
+        files: \.(py|ipynb)$  # Applied to .py and .ipynb files
+        stages: [pre-commit]  # Trigger this in the pre-commit stage
