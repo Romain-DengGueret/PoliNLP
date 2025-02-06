@@ -11,8 +11,5 @@ This project follows an ELT pipeline to retrieve data from the DREES API and sto
 
 ## Project Structure  
 
-- `scripts/` → Contains Python and R scripts for **data extraction, cleaning, and analysis**  
-- `data/raw/` → Stores **raw datasets** from the API (JSON, CSV)  
-- `data/processed/` → Stores **cleaned and transformed data** in Parquet format  
-- `results/` → Contains **final reports, visualizations, and summary statistics**  
+- `polinlp/` → Contains Python scripts for **data extraction, cleaning, and analysis**  
 - `tests/` → Unit tests for **data integrity and model performance**  
