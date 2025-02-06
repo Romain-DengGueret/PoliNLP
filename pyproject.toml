@@ -6,14 +6,29 @@ authors = [
     {name = "Romain-DengGueret", email = "romain.dengueret@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.9,<3.13"  # Modifier ici pour compatibilité avec SpaCy
+requires-python = ">=3.9,<3.13"
 dependencies = [
     "polars (>=1.21.0,<2.0.0)",
     "requests (>=2.32.3,<3.0.0)",
     "pre-commit (>=4.1.0,<5.0.0)",
-    "spacy (>=3.8.4,<4.0.0)"  # Ajouter SpaCy
+    "spacy (>=3.8.4,<4.0.0)",
+    "scikit-learn (>=1.6.1,<2.0.0)"
 ]
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.1.0"
+mypy = "^1.15.0"
+types-requests = "^2.32.0.20241016"
 
+[tool.mypy]
+plugins = []
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+
+[mypy-requests]
+ignore_missing_imports = true
+
+[tool.poetry]
+packages = [
+    { include = "polinlp" }
+]
