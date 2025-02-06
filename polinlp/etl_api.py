@@ -28,7 +28,9 @@ cleaned_response = [
     for entry in response
 ]
 
+# Results in a Polars DataFrame
 df = pl.DataFrame(cleaned_response)
 
+# Writing parquet
 path = prepro_data_path + "/trajectoires_beneficiares_minimas_sociaux.parquet"
 df.write_parquet(path)
