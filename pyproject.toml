@@ -12,7 +12,8 @@ dependencies = [
     "requests (>=2.32.3,<3.0.0)",
     "pre-commit (>=4.1.0,<5.0.0)",
     "spacy (>=3.8.4,<4.0.0)",
-    "scikit-learn (>=1.6.1,<2.0.0)"
+    "scikit-learn (>=1.6.1,<2.0.0)",
+    "types-requests (>=2.32.0.20241016,<3.0.0.0)"
 ]
 
 [tool.poetry.group.dev.dependencies]
@@ -24,8 +25,6 @@ types-requests = "^2.32.0.20241016"
 plugins = []
 disallow_untyped_calls = true
 disallow_untyped_decorators = true
-
-[mypy-requests]
 ignore_missing_imports = true
 
 [tool.poetry]
