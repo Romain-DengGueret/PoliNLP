@@ -21,6 +21,7 @@ dependencies = [
 pre-commit = "^4.1.0"
 mypy = "^1.15.0"
 types-requests = "^2.32.0.20241016"
+pytest = "^8.3.4"
 
 [tool.mypy]
 plugins = []

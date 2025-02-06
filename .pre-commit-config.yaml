@@ -25,3 +25,4 @@ repos:
           - pydantic==2.9.2  # Optional dependency if using Pydantic, remove if not needed
         files: \.(py|ipynb)$  # Applied to .py and .ipynb files
         stages: [pre-commit]  # Trigger this in the pre-commit stage
+

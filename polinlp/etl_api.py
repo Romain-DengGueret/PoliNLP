@@ -3,7 +3,7 @@ import polars as pl
 import os
 
 # Remonter d'un niveau
-parent_dir = os.getcwd() + "/PoliNLP"
+parent_dir = os.getcwd()
 
 # Construire les chemins dynamiques
 data_path = parent_dir + "/data"
