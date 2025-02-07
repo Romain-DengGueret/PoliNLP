@@ -43,4 +43,6 @@ def etl_json_to_polarsdf(endpoint: str) -> pl.DataFrame:
 df_etl = etl_json_to_polarsdf(endpoint=url)
 
 # Export parquet
-df_etl.write_parquet("~/work/PoliNLP/data/{}.parquet".format(minimasociaux))
+df_etl.write_parquet(
+    "~/work/PoliNLP/data/preprocessed/{}.parquet".format(minimasociaux)
+)
