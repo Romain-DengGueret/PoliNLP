@@ -1,22 +1,17 @@
 import requests  # type: ignore
 import polars as pl
-import os
 
-# Remonter d'un niveau
-parent_dir = os.getcwd()
-
-# Construire les chemins dynamiques
-data_path = parent_dir + "/data"
-prepro_data_path = data_path + "/prepro"
 
 # Defining endpoint
 drees = "https://data.drees.solidarites-sante.gouv.fr/api/explore/v2.1"
 datasets = "/catalog/datasets/"
-minimasociaux = "/trajectoires-des-beneficiaires-de-minima-sociaux/exports/json"
+minimasociaux = "trajectoires-des-beneficiaires-de-minima-sociaux"
+jsonexport = "/exports/json"
 
-url = drees + datasets + minimasociaux
+url = drees + datasets + minimasociaux + jsonexport
 
 
+# Function to connect to api
 def etl_json_to_polarsdf(endpoint: str) -> pl.DataFrame:
     """
     Performs an HTTP GET request on the given endpoint, retrieves the JSON
@@ -47,7 +42,3 @@ def etl_json_to_polarsdf(endpoint: str) -> pl.DataFrame:
 
 
 df_etl = etl_json_to_polarsdf(endpoint=url)
-
-# Writing parquet
-path = prepro_data_path + "/trajectoires_beneficiares_minimas_sociaux.parquet"
-df_etl.write_parquet(path)
