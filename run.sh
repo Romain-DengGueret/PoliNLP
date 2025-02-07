@@ -1,24 +1,31 @@
 #!/bin/bash
 
-echo "🚀 Début du pipeline"
+echo "🚀 Starting the pipeline"
 
-# Étape 1 : Récupération des données
-echo "📥 Appel API et transformation en DataFrame..."
+# Move into the 'polinlp' directory
+cd polinlp || { echo "❌ Error: 'polinlp' directory not found!"; exit 1; }
+
+# Step 1: Fetch data
+echo "📥 Calling API and transforming JSON into DataFrame..."
 python etl_api.py
 
-# Vérifier si l'étape précédente a réussi
+# Check if the previous step was successful
 if [ $? -ne 0 ]; then
-  echo "❌ Erreur lors de l'appel API !"
+  echo "❌ Error during API call!"
   exit 1
 fi
 
-# Étape 2 : Traitement des données
-echo "🛠️ Traitement du DataFrame..."
+# Step 2: Process the data
+echo "🛠️ Processing the DataFrame..."
 python eda.py
 
 if [ $? -ne 0 ]; then
-  echo "❌ Erreur lors du traitement des données !"
+  echo "❌ Error during data processing!"
   exit 1
 fi
 
-echo "✅ Pipeline terminé avec succès !"
+echo "✅ Pipeline completed successfully!"
+
+
+
+
