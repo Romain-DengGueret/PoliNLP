@@ -1,7 +1,6 @@
 import requests  # type: ignore
 import polars as pl
 
-
 # Defining endpoint
 drees = "https://data.drees.solidarites-sante.gouv.fr/api/explore/v2.1"
 datasets = "/catalog/datasets/"
@@ -42,3 +41,6 @@ def etl_json_to_polarsdf(endpoint: str) -> pl.DataFrame:
 
 
 df_etl = etl_json_to_polarsdf(endpoint=url)
+
+# Export parquet
+df_etl.write_parquet("~/work/PoliNLP/data/{}.parquet".format(minimasociaux))
