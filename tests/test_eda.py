@@ -3,9 +3,7 @@ import os
 
 # Define the expected file path
 MINIMA_SOCIAUX = "trajectoires-des-beneficiaires-de-minima-sociaux"
-DATA_PATH = os.path.expanduser(
-    f"~/work/PoliNLP/data/preprocessed/{MINIMA_SOCIAUX}.parquet"
-)
+DATA_PATH = os.path.expanduser(f"~/work/PoliNLP/data/raw/{MINIMA_SOCIAUX}.parquet")
 
 
 def test_dataframe_is_polars():
