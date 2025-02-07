@@ -11,7 +11,6 @@ This project follows an ELT pipeline to retrieve data from the DREES API and sto
 
 ## Project Structure  
 
-- `notebooks/` → Contains Jupyter Notebooks for **exploratory data analysis**  
 - `polinlp/` → Contains Python scripts for **data extraction, cleaning, and analysis**  
 - `tests/` → Unit tests for **data integrity and model performance**  
 
