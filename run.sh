@@ -39,7 +39,16 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Step 3: Process the data
+# Step 3: Check data quality
+echo "📊 Checking data quality..."
+poetry run python polinlp/data_quality_check.py
+
+if [ $? -ne 0 ]; then
+  echo "❌ Error during data quality check!"
+  exit 1
+fi
+
+# Step 4: Process the data
 echo "🛠️ Processing the DataFrame..."
 poetry run python polinlp/eda.py
 

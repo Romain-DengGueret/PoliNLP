@@ -14,7 +14,10 @@ This project follows an ELT pipeline to retrieve data from the DREES API and sto
 - `polinlp/` → Contains Python scripts for **data extraction, cleaning, and analysis**
 - `tests/` → Unit tests for **data integrity and model performance**
 
-
 ## Orchestration
 
 I use a simple orchestrator, run `run.sh` in the terminal to execute all scripts.
+
+## CI/CD
+
+Check in `.github/workflow` for `ci.yml` and `cd.yml`.
