@@ -14,15 +14,24 @@ repos:
         files: \.(py|ipynb)$  # Applied to .py and .ipynb files
         stages: [pre-commit]  # Trigger this in the pre-commit stage
 
+  # Flake8 for additional Python linting checks
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        name: Flake8 Linter (All .py files)
+        args: ["--max-line-length=88", "--extend-ignore=E203,E501,W503"]
+        files: \.(py|ipynb)$  # Applied only to .py and .ipynb files
+        stages: [pre-commit]
+
   # MyPy to check type annotations (Python and Jupyter Notebooks)
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.0.1
     hooks:
       - id: mypy
         name: MyPy Type Checker (All .py and .ipynb files)
-        args: ["--explicit-package-bases", "--ignore-missing-imports"]  # Type checking for Python files with missing imports handled
+        args: ["--explicit-package-bases", "--ignore-missing-imports"]
         additional_dependencies:
           - pydantic==2.9.2  # Optional dependency if using Pydantic, remove if not needed
         files: \.(py|ipynb)$  # Applied to .py and .ipynb files
-        stages: [pre-commit]  # Trigger this in the pre-commit stage
-
+        stages: [pre-commit]
