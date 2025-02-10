@@ -1,3 +1,4 @@
+import os
 import requests  # type: ignore
 import polars as pl
 
@@ -42,5 +43,11 @@ def etl_json_to_polarsdf(endpoint: str) -> pl.DataFrame:
 
 df_etl = etl_json_to_polarsdf(endpoint=url)
 
+# Ensure the output directory exists
+output_dir = "~/work/PoliNLP/data/raw/"
+os.makedirs(
+    os.path.expanduser(output_dir), exist_ok=True
+)  # Create directory if it doesn't exist
+
 # Export parquet
-df_etl.write_parquet("~/work/PoliNLP/data/raw/{}.parquet".format(minimasociaux))
+df_etl.write_parquet(os.path.expanduser(f"{output_dir}{minimasociaux}.parquet"))
