@@ -1,0 +1,51 @@
+name: PoliNLP CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Trigger the deployment only on push to the main branch
+  workflow_dispatch:  # Allows manual triggering from the GitHub UI
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      # 3. Install Poetry
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+
+      # 4. Install dependencies using Poetry
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      # 5. Ensure `run.sh` is executable
+      - name: Ensure `run.sh` is executable
+        run: chmod +x run.sh
+
+      # 6. Run the full pipeline (without tests) using `run.sh`
+      - name: Run full pipeline (without tests)
+        run: ./run.sh --skip-tests
+
+      # 7. Check if the Parquet file is generated in the correct directory
+      - name: Check if Parquet file exists
+        run: |
+          ls data/preprocessed/
+          ls data/preprocessed/*.parquet
+
+      # 8. Notify on success
+      - name: Notify success
+        run: |
+          echo "✅ Deployment completed successfully!"

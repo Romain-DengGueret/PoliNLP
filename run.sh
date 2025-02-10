@@ -16,10 +16,21 @@ if ! command -v poetry &> /dev/null; then
   exit 1
 fi
 
+# Optional: Check Poetry version (optional suggestion)
+echo "📦 Poetry version: $(poetry --version)"
+
 echo "📦 Installing dependencies..."
 poetry install --no-interaction --no-root
 
-# Step 1: Fetch data
+# Step 1: Activate the virtual environment
+ENV_PATH=$(poetry env info --path)
+if [ ! -d "$ENV_PATH" ]; then
+  echo "❌ Error: Poetry virtual environment not found!"
+  exit 1
+fi
+source "$ENV_PATH/bin/activate"
+
+# Step 2: Fetch data
 echo "📥 Calling API and transforming JSON into DataFrame..."
 poetry run python polinlp/etl_api.py
 
@@ -28,7 +39,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Step 2: Process the data
+# Step 3: Process the data
 echo "🛠️ Processing the DataFrame..."
 poetry run python polinlp/eda.py
 
@@ -38,6 +49,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run tests (only if not skipped)
+RUN_TESTS=${RUN_TESTS:-false}  # Default to false if not set
 if [ "$RUN_TESTS" = true ]; then
   echo "🧪 Running tests..."
   poetry run pytest tests/ --tb=short | tee logs/test_results.log
@@ -47,6 +59,7 @@ if [ "$RUN_TESTS" = true ]; then
   fi
 fi
 
+# Step 4: Final output
 end_time=$(date +%s)
 execution_time=$((end_time - start_time))
 
