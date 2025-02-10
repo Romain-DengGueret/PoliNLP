@@ -51,7 +51,3 @@ end_time=$(date +%s)
 execution_time=$((end_time - start_time))
 
 echo "✅ All steps completed successfully in $execution_time seconds!"
-
-
-
-
