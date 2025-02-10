@@ -42,8 +42,8 @@ jobs:
       # 7. Check if the Parquet file is generated in the correct directory
       - name: Check if Parquet file exists
         run: |
-          ls data/preprocessed/
-          ls data/preprocessed/*.parquet
+          ls data/raw/
+          ls data/raw/*.parquet
 
       # 8. Notify on success
       - name: Notify success
