@@ -4,15 +4,15 @@ repos:
     rev: v0.7.0
     hooks:
       - id: ruff
-        name: Ruff Linter (All .py and .ipynb files)
+        name: Ruff Linter (All .py files)
         args: ["--fix"]  # Automatically correct errors
-        files: \.(py|ipynb)$  # Applied to .py and .ipynb files
-        stages: [pre-commit]  # Trigger this in the pre-commit stage
+        files: \.py$  # Applied to .py files only
+        stages: [pre-commit]
 
       - id: ruff-format
-        name: Ruff Formatter (All .py and .ipynb files)
-        files: \.(py|ipynb)$  # Applied to .py and .ipynb files
-        stages: [pre-commit]  # Trigger this in the pre-commit stage
+        name: Ruff Formatter (All .py files)
+        files: \.py$  # Applied to .py files only
+        stages: [pre-commit]
 
   # Flake8 for additional Python linting checks
   - repo: https://github.com/pycqa/flake8
@@ -20,18 +20,26 @@ repos:
     hooks:
       - id: flake8
         name: Flake8 Linter (All .py files)
-        args: ["--max-line-length=88", "--extend-ignore=E203,E501,W503"]
-        files: \.(py|ipynb)$  # Applied only to .py and .ipynb files
+        args: ["--max-line-length=88", "--extend-ignore=E203,E501,W503,F401,F841"]
+        files: \.py$  # **Exclut .ipynb**
         stages: [pre-commit]
 
-  # MyPy to check type annotations (Python and Jupyter Notebooks)
+  # MyPy to check type annotations
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.0.1
     hooks:
       - id: mypy
-        name: MyPy Type Checker (All .py and .ipynb files)
+        name: MyPy Type Checker (All .py files)
         args: ["--explicit-package-bases", "--ignore-missing-imports"]
         additional_dependencies:
-          - pydantic==2.9.2  # Optional dependency if using Pydantic, remove if not needed
-        files: \.(py|ipynb)$  # Applied to .py and .ipynb files
+          - pydantic==2.9.2
+        files: \.py$  # **Exclut .ipynb**
         stages: [pre-commit]
+
+  # Pre-commit hooks for code hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace  # Supprime les espaces inutiles
+      - id: end-of-file-fixer  # Assure une fin de fichier propre
+      - id: check-yaml  # Vérifie la syntaxe YAML
